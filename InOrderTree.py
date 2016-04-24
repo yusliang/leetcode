@@ -25,6 +25,23 @@ class Solution(object):
         #res = []
         #self.inorder(root, res)
         return res
+    def morrisInorder(self, root):
+        res = []
+        while(root):
+            if not root.left:
+                res.append(root.val)
+                root = root.right
+            else:
+                dum = root.left
+                while(dum.right and dum.right != root):
+                    dum = dum.right
+                if not dum.right:
+                    dum.right = root
+                    root = root.left
+                else:
+                    res.append(root.val)
+                    root = root.right
+        return res
     def inorder(self, root, res):
         if root:
             self.inorder(root.left, res)
@@ -37,6 +54,6 @@ root.left = TreeNode(2)
 root.right = TreeNode(3)
 root.left.left = TreeNode(4)
 root.right.right = TreeNode(5)
-print(s.inorderTraversal(root))
+print(s.morrisInorder(root))
 
     
